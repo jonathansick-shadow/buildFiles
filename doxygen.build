@@ -1,0 +1,15 @@
+: Change true -> false if you have already downloaded and just want to build
+if true; then
+	curl -L \
+		ftp://ftp.stack.nl/pub/users/dimitri/doxygen-@VERSION@.src.tar.gz \
+	> @PRODUCT@-@VERSION@.tar.gz &&
+	tar -xzf @PRODUCT@-@VERSION@.tar.gz &&
+	cd @PRODUCT@-@VERSION@ &&
+	if [ X@VERSION@ = X1.5.5 ]; then
+		perl -pi -e 's/MAC_OS_X_VERSION_MAX_ALLOWED==MAC_OS_X_VERSION_10_5/MAC_OS_X_VERSION_MAX_ALLOWED>=MAC_OS_X_VERSION_10_4/' qtools/qfiledefs_p.h
+	fi
+fi &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix $product_dir &&a
+make &&
+make install
