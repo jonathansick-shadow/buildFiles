@@ -1,12 +1,12 @@
-: Change true -> false if you have already downloaded and just want to build
-if true; then
-	curl -L \
-		http://prdownloads.sourceforge.net/swig/swig-@VERSION@.tar.gz \
-	> @PRODUCT@-@VERSION@.tar.gz &&
-	tar -xzf @PRODUCT@-@VERSION@.tar.gz &&
-	cd @PRODUCT@-@VERSION@
-fi &&
+curl -L \
+	http://downloads.sourceforge.net/swig/@PRODUCT@-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
+if [ ! -d $product_dir ]; then
+	mkdir -p $product_dir;
+fi &&
 make install
