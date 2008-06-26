@@ -1,0 +1,13 @@
+version=@VERSION.sub(r"v3_|3\.", "3")@ &&
+
+curl -L \
+	ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/@PRODUCT@$version.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+rm -rf @PRODUCT@-@VERSION@ &&
+mv @PRODUCT@ @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir &&
+make &&
+make install

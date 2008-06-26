@@ -1,0 +1,6 @@
+svn co @SVNROOT@/vendor/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+env PKG_PATHS=$BOOST_DIR ./configure -C --prefix=$product_dir &&
+make &&
+make install

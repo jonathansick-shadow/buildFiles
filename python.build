@@ -1,0 +1,10 @@
+#
+# We don't actually install python, just check that it exists
+#
+# BuildFile  Reassure eups distrib
+#
+version=`python -V 2>&1 | awk '{print $2}'` &&
+if [ X$version != X@VERSION@ ]; then
+	echo "I see python $version, not @VERSION@" >&2
+	false
+fi

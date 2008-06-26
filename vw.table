@@ -1,0 +1,6 @@
+setupRequired("boost")
+setupRequired("vwlapack")
+
+envAppend(PATH, ${PRODUCT_DIR}/bin)
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
+envAppend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)

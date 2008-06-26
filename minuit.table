@@ -1,0 +1,2 @@
+pathAppend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
+pathAppend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)

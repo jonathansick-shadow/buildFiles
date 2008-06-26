@@ -1,0 +1,14 @@
+product=@PRODUCT.title()@ &&
+version=@VERSION.replace(".", "_")@ &&
+
+curl -L \
+	http://seal.web.cern.ch/seal/minuit/releases/$product-$version.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+rm -rf @PRODUCT@-@VERSION@ &&
+mv $product-$version @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir &&
+make &&
+make install
