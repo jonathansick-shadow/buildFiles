@@ -1,6 +1,32 @@
 svn co @SVNROOT@/vendor/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+#
+# there are problems in autoheader if we don't do this
+#
+if [ "$(eups flavor)" = DarwinX86 ]; then
+	autoreconf -i -f > autoreconf.out 2>&1
+fi &&
+perl -pi -e 'if(!defined($echo) &&
+                !/^#/) {
+print <<EOT;
+#
+# Force configure to use a version of echo that supports -n as
+# some of this configure script uses explicit "echo -n" commands
+#
+function echo () {
+if [ X\"\$1\" = X-n ]; then
+    shift
+    printf "%s" "\$*"
+else
+    printf "%s\\n" "\$*"
+fi
+}
+EOT
+$echo=1;
+}
+
+' configure &&
 env PKG_PATHS=$BOOST_DIR ./configure -C --prefix=$product_dir &&
 make &&
 make install

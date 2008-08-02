@@ -1,0 +1,3 @@
+envPrepend(PATH, ${PRODUCT_DIR}/python/python/bin)
+envPrepend(PATH, ${PRODUCT_DIR}/bin)
+envSet(PACMAN_LOCATION, ${PRODUCT_DIR})

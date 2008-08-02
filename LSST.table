@@ -1,0 +1,5 @@
+setupRequired(pacman)
+
+envSet(EUPS_PKGROOT, http://dev.lsstcorp.org/pkgs)
+envSet(LSST_HOME, ${PRODUCT_DIR})
+envSet(EUPS_STARTUP, ${EUPS_DIR}/bin/eupsLsstStartup.py)

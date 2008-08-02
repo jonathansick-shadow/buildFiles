@@ -1,0 +1,14 @@
+# 
+curl -o pacman-latest.tar.gz http://dev.lsstcorp.org/pkgs/ext/pacman/latest/pacman-latest.tar.gz &&
+version=`(tar -ztf pacman-latest.tar.gz 2>/dev/null| head -1) | perl -ne 's|pacman-(.*)/$|$1|; print $_'` &&
+if [ $version != "@VERSION@" ]; then
+    echo "Expected version @VERSION@, saw $version; aborting" >&2
+    false
+fi &&
+tar xzf pacman-latest.tar.gz &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@ &&
+if [ ! -d $product_dir ]; then
+    mkdir -p $product_dir
+fi &&
+rm -rf $product_dir/$version &&
+mv pacman-$version $product_dir/$version

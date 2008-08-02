@@ -1,10 +1,19 @@
 #
-# We don't actually install python, just check that it exists
+# We don't actually install python, just check that it exists and declare
+# it appropriately to eups
 #
-# BuildFile  Reassure eups distrib
+# Build File  Reassure eups distrib
 #
-version=`python -V 2>&1 | awk '{print $2}'` &&
+version=`python -c "import distutils.sysconfig as ds; print ds.get_python_version()"`
 if [ X$version != X@VERSION@ ]; then
 	echo "I see python $version, not @VERSION@" >&2
 	false
 fi
+
+python_dir=`python -c "
+import distutils.sysconfig as ds; import os.path;
+psplit=lambda x: os.path.split(x)[0];
+print psplit(psplit(psplit(ds.get_python_lib())));
+"` &&
+
+eups declare -m none -r $python_dir python @VERSION@
