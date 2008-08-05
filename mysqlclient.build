@@ -7,7 +7,7 @@ if [ $(eups flavor) = DarwinX86 ]; then
    extra="$(eups flavor)/"
 fi &&
 
-if false; then
+if true; then
     curl -L \
 	http://dev.lsstcorp.org/pkgs/ext/@PRODUCT@/@VERSION@/${extra}$product-$version.tar.gz \
     > @PRODUCT@-@VERSION@.tar.gz &&
@@ -17,9 +17,9 @@ if false; then
 fi &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-: ./configure --prefix=$product_dir --without-server --enable-thread-safe-client &&
-: make &&
-: make install &&
+./configure --prefix=$product_dir --without-server --enable-thread-safe-client &&
+make &&
+make install &&
 (cd $product_dir/lib && ln -fs mysql/* . ) &&
 
 if [ $(eups flavor) = DarwinX86 ]; then

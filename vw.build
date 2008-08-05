@@ -1,4 +1,22 @@
-svn co @SVNROOT@/vendor/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@ &&
+version=@VERSION.replace("-", ".alpha")@
+
+case $version in
+ *alpha*)
+   if true; then
+      curl -L \
+        http://ti.arc.nasa.gov/projects/visionworkbench/$version/VisionWorkbench-$version.tar.gz \
+      > @PRODUCT@-@VERSION@.tar.gz
+   else
+      cat /u/rhl/LSST/VisionWorkbench-$version.tar.gz > @PRODUCT@-@VERSION@.tar.gz
+   fi &&
+   gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+   rm -rf @PRODUCT@-@VERSION@ &&
+   mv VisionWorkbench-$version @PRODUCT@-@VERSION@
+   ;;
+ *)
+   svn co @SVNROOT@/vendor/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@
+   ;;
+esac &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 #
@@ -7,6 +25,7 @@ product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 if [ "$(eups flavor)" = DarwinX86 ]; then
 	autoreconf -i -f > autoreconf.out 2>&1
 fi &&
+if false; then
 perl -pi -e 'if(!defined($echo) &&
                 !/^#/) {
 print <<EOT;
@@ -25,8 +44,10 @@ fi
 EOT
 $echo=1;
 }
-
-' configure &&
-env PKG_PATHS=$BOOST_DIR ./configure -C --prefix=$product_dir &&
+' configure
+fi &&
+./configure -C --with-paths="$BOOST_DIR" --prefix=$product_dir &&
+# needed due to changes in libtool in 1.0.1+4 --- this is a hack
+#export echo=echo &&
 make &&
 make install

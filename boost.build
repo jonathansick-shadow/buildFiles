@@ -2,22 +2,24 @@
 version=@VERSION.replace(".", "_")@ &&
 # but 1_35_0 is installed as 1_35 grrrrr
 installed_version=@VERSION.replace(".", "_").sub(r"(_0)*$", "")@ &&
-
-curl -L \
+# change to false if you don't want to download source again
+if true; then
+   curl -L \
 	http://downloads.sourceforge.net/boost/boost_$version.tar.gz \
-> @PRODUCT@-@VERSION@.tar.gz &&
-gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-rm -rf @PRODUCT@-@VERSION@ &&
-mv @PRODUCT@_$version @PRODUCT@-@VERSION@ &&
+   > @PRODUCT@-@VERSION@.tar.gz &&
+   gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+   rm -rf @PRODUCT@-@VERSION@ &&
+   mv @PRODUCT@_$version @PRODUCT@-@VERSION@
+fi &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
 make install &&
-if [ ! -d $product_dir/include/boost ]; then
-   if [ -d $product_dir/include/boost-$version/boost ]; then
+if [ ! -e $product_dir/include/boost ]; then
+   if [ -e $product_dir/include/boost-$version/boost ]; then
       ln -s $product_dir/include/boost-$version/boost $product_dir/include
-   elif [ -d $product_dir/include/boost-$installed_version/boost ]; then
+   elif [ -e $product_dir/include/boost-$installed_version/boost ]; then
       ln -s $product_dir/include/boost-$installed_version/boost $product_dir/include
    else
       echo I am unable to guess what boost called its installed include files
