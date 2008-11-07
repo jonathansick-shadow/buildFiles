@@ -1,0 +1,3 @@
+# BuildFile
+echo "We do not support installing readline at this point" &&
+false
