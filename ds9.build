@@ -1,0 +1,34 @@
+: -*- sh -*-
+: Change true -> false if you have already downloaded and just want to build
+flavor=$(eups flavor) &&
+case $flavor in
+  Darwin)
+    arch="darwintiger";;
+  DarwinX86)
+    : this is just a guess for the feline classification
+    if [ $(uname -r | sed -e s/\\..*//) -lt 9 ]; then
+	arch="darwintiger"
+    else
+	arch="darwinleopard"
+    fi;;
+  Linux)
+    arch="linux";;
+  Linux64)
+    arch="linux64";;
+  *)
+    false;;
+esac &&
+if true; then
+	curl -L \
+	http://hea-www.harvard.edu/saord/download/ds9/$arch/ds9.$arch.@VERSION@.tar.gz \
+	> @PRODUCT@-@VERSION@.tar.gz &&
+	tar -xzf @PRODUCT@-@VERSION@.tar.gz
+fi &&
+product_dir0=$(eups path 0)/$(eups flavor)/@PRODUCT@ &&
+product_dir=$product_dir0/@VERSION@ &&
+for d in $product_dir0 $product_dir $product_dir/bin $product_dir/ups; do
+   if [ ! -d $d ]; then
+      mkdir $d
+   fi
+done &&
+mv ds9 $product_dir/bin
