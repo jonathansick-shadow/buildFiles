@@ -1,4 +1,4 @@
-svn co @SVNROOT@/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@ &&
+svn co @SVNROOT@/vendor/@PRODUCT@/tags/@VERSION@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 setup -r . &&
 scons opt=3 &&
