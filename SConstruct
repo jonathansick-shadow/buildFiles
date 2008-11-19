@@ -8,7 +8,7 @@ import os, sys
 sys.path = ["python"] + sys.path # ensure that we use our copy of sconsLSST
 import lsst.SConsUtils as scons
 
-env = scons.MakeEnv("sconsUtils",
+env = scons.MakeEnv("buildFiles",
                     r"$HeadURL$")
 
 #
