@@ -1,0 +1,10 @@
+curl -L \
+	http://www.astrometry.net/downloads/astrometry.net-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+rm -rf @PRODUCT@-@VERSION@ &&
+mv astrometry.net-@VERSION@ @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+make &&
+env INSTALL_DIR=$product_dir make install

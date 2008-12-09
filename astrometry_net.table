@@ -1,0 +1,2 @@
+setupRequired("cfitsio")
+setupRequired("astrometry_net_data")

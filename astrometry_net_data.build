@@ -1,0 +1,9 @@
+# build file
+
+product_dir=$(eups path 0)/$(eups flavor) &&
+if [ ! -d $product_dir ]; then
+   mkdir -p $product_dir
+fi
+
+echo "Don't forget to install a real copy of the astrometry.net data" >&2
+echo "See http://trac.astrometry.net/browser/trunk/src/astrometry/GETTING-INDICES" >&2
