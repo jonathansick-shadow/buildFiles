@@ -1,0 +1,12 @@
+# -*- sh -*-
+curl -L \
+     http://download.tuxfamily.org/eigen/@PRODUCT@-@VERSION@.tar.bz2 \
+> @PRODUCT@-@VERSION@.tar.bz2 &&
+bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+if [ ! -d $product_dir/include ]; then
+   mkdir -p $product_dir/include
+fi &&
+cp -r Eigen $product_dir/include &&
+(cd $product_dir/include; ln -fs Core Core.h)
