@@ -7,6 +7,10 @@ if true; then
 	cd @PRODUCT@-@VERSION@ &&
 	if [ X@VERSION@ = X1.5.5 ]; then
 		perl -pi -e 's/MAC_OS_X_VERSION_MAX_ALLOWED==MAC_OS_X_VERSION_10_5/MAC_OS_X_VERSION_MAX_ALLOWED>=MAC_OS_X_VERSION_10_4/' qtools/qfiledefs_p.h
+	fi &&
+	if [ X@VERSION@ = X1.5.7.1 -o  X@VERSION@ = X1.5.8 ]; then
+	    perl -pi -e 's/\(defined\(_OS_MAC_\) \|\| defined\(Q_OS_MACX\) \)&& \(_LIBICONV_VERSION==0x010B\)\)/(defined(_OS_MAC_) || defined(Q_OS_MACX) )&& (0 && _LIBICONV_VERSION==0x010B))/' \
+		src/portable.cpp
 	fi
 fi &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
