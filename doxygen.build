@@ -12,6 +12,13 @@ if true; then
 	    perl -pi -e 's/\(defined\(_OS_MAC_\) \|\| defined\(Q_OS_MACX\) \)&& \(_LIBICONV_VERSION==0x010B\)\)/(defined(_OS_MAC_) || defined(Q_OS_MACX) )&& (0 && _LIBICONV_VERSION==0x010B))/' \
 		src/portable.cpp
 	fi
+	if [ X@VERSION@ = X1.6.1 ]; then
+	   perl -pi -e 's/#  if \(MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5\)/
+\#  if !defined(MAC_OS_X_VERSION_10_6)
+\#       define MAC_OS_X_VERSION_10_6 MAC_OS_X_VERSION_10_5 + 1
+\#  endif
+\#  if \(MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_6\)/' qtools/qglobal.h
+	fi
 fi &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix $product_dir &&a
