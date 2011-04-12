@@ -1,6 +1,7 @@
 #!/bin/sh 
-pyversion=@VERSION.sub("^.*py(.*)$", "\1")@	# guess the python version
-wget http://pypi.python.org/packages/$pyversion/s/setuptools/setuptools-@VERSION@.egg &&
-sh setuptools-@VERSION@.egg
+
+wget http://peak.telecommunity.com/dist/ez_setup.py
+python ez_setup.py
+
 
 
