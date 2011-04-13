@@ -1,0 +1,2 @@
+setupRequired(numpy)
+pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
