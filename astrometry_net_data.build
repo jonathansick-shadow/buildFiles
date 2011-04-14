@@ -1,6 +1,6 @@
 # build file
 
-product_dir=$(eups path 0)/$(eups flavor) &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 if [ ! -d $product_dir ]; then
    mkdir -p $product_dir
 fi
