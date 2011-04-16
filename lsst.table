@@ -1,5 +1,17 @@
-setupRequired(pacman)
+setupRequired(lssteups)
 
-envSet(EUPS_PKGROOT, http://dev.lsstcorp.org/pkgs)
-envSet(LSST_HOME, ${PRODUCT_DIR})
-envSet(EUPS_STARTUP, ${EUPS_DIR}/bin/eupsLsstStartup.py)
+envSet(SVNROOT,  "svn+ssh://svn.lsstcorp.org")
+envSet(LSST_HOME, ${EUPS_PATH[0]})
+
+envPrepend(EUPS_PKGROOT, http://dev.lsstcorp.org/dmspkgs, |)
+
+envPrepend(PATH, $?{PRODUCT_DIR}/bin)
+
+envSet(LSST_SVN, "${SVNROOT}")
+envSet(LSST_DMS, "${SVNROOT}/DMS")
+
+envPrepend(EUPS_PATH, $?{LSST_DEVEL})
+
+if( not ${LSST_PKGS:-False} ) {
+    envSet(LSST_PKGS, ${LSST_HOME}/${PRODUCT_FLAVOR})
+}
