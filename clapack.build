@@ -1,0 +1,26 @@
+# get the tarball
+wget http://www.netlib.org/clapack/clapack-@VERSION@.tgz &&
+
+# untar
+tar xvzf clapack-@VERSION@.tgz &&
+cd CLAPACK-@VERSION@ &&
+
+# update the make.inc file
+sed 's/CFLAGS    = -O3/CFLAGS    = -O3 -fPIC/' make.inc.example > make.inc &&
+
+# build f2c
+make f2clib &&
+
+# build reference blas which comes with clapack
+make blaslib &&
+
+# build the archive containing lapack source
+cd SRC &&  make && cd .. &&
+
+: install the .a files and include files &&
+product_dir=$(eups path 0)/$(eups flavor)/clapack/@VERSION@ &&
+
+mkdir -p $product_dir/{lib,include} &&
+cp *.a F2CLIBS/libf2c.a $product_dir/lib &&
+ranlib $product_dir/lib/*.a &&
+cp INCLUDE/*.h $product_dir/include
