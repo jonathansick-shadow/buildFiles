@@ -1,3 +1,4 @@
+# -*- sh -*-
 # get the tarball
 wget http://www.netlib.org/clapack/clapack-@VERSION@.tgz &&
 
@@ -15,12 +16,23 @@ make f2clib &&
 make blaslib &&
 
 # build the archive containing lapack source
-cd SRC &&  make && cd .. &&
+cd SRC && make && cd .. &&
 
 : install the .a files and include files &&
 product_dir=$(eups path 0)/$(eups flavor)/clapack/@VERSION@ &&
 
+cp INCLUDE/*.h $product_dir/include &&
+
 mkdir -p $product_dir/{lib,include} &&
-cp *.a F2CLIBS/libf2c.a $product_dir/lib &&
-ranlib $product_dir/lib/*.a &&
-cp INCLUDE/*.h $product_dir/include
+cp F2CLIBS/libf2c.* $product_dir/lib &&
+for p in lapack blas; do
+    for s in a so dylib; do
+	for f in $p*.$s; do
+	    if [ -f $f ]; then
+		cp $f $product_dir/lib
+		ln -fs $product_dir/lib/$f
+	    fi
+	done
+    done
+done &&
+ranlib $product_dir/lib/*.a
