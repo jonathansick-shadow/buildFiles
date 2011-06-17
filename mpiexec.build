@@ -1,0 +1,10 @@
+curl -L \
+	http://www.osc.edu/~djohnson/mpiexec/mpiexec-@VERSION@.tgz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+rm -rf @PRODUCT@-@VERSION@ &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir --with-default-comm=pmi --with-mpicc=$MPICH2_DIR/bin/mpicc &&
+make &&
+make install
