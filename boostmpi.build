@@ -1,0 +1,21 @@
+curl -L \
+	http://pypi.python.org/packages/source/b/boostmpi/boostmpi-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+python_version=$(python -c "import distutils.sysconfig as ds; print ds.get_python_version()") &&
+if [ ! -d $product_dir ]; then
+	mkdir -p $product_dir
+	mkdir -p $product_dir/lib/python$python_version/site-packages
+fi &&
+cd @PRODUCT@-@VERSION@ &&
+python configure.py --prefix=$product_dir --boost-inc-dir=$BOOST_DIR/include/ --boost-lib-dir=$BOOST_DIR/lib/ --boost-compiler=gcc44 --mpicc=$MPICH2_DIR/bin/mpicc --mpicxx=$MPICH2_DIR/bin/mpicxx --boost-python-libname=boost_python-gcc44-mt --boost-mpi-libname=boost_mpi-gcc44-mt --cxxflags="-I$BOOST_DIR/include","-I$MPICH2_DIR/include" --ldflags="-L$BOOST_DIR/lib","-L$MPICH2_DIR/lib" &&
+python setup.py install --prefix=$product_dir &&
+if [ ! -d $product_dir/lib/python ]; then
+   mkdir -p $product_dir/lib/python
+fi &&
+ln -fs $product_dir/lib/python$python_version/site-packages  $product_dir/lib/python &&
+if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
+	rm -rf $product_dir/lib
+	mv $product_dir/lib64 $product_dir/lib
+fi

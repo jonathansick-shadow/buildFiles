@@ -1,0 +1,6 @@
+setupRequired(boost 1.37.0+2)
+setupRequired(python)
+setupRequired(mpich2)
+setupOptional(gcc)
+pathPrepend(PATH, ${PRODUCT_DIR}/bin)
+pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python2.5/site-packages)
