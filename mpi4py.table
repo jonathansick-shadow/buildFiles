@@ -1,0 +1,3 @@
+setupRequired(python)
+setupRequired(mpich2)
+pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
