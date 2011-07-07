@@ -1,0 +1,20 @@
+curl -L \
+    http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-@VERSION@/matplotlib-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+python_version=$(python -c "import distutils.sysconfig as ds; print ds.get_python_version()") &&
+if [ ! -d $product_dir ]; then
+        mkdir -p $product_dir
+        mkdir -p $product_dir/lib/python$python_version/site-packages
+fi &&
+cd @PRODUCT@-@VERSION@ &&
+python setup.py install --prefix=$product_dir &&
+if [ ! -d $product_dir/lib/python ]; then
+   mkdir -p $product_dir/lib/python
+fi &&
+ln -fs $product_dir/lib/python$python_version/site-packages  $product_dir/lib/python &&
+if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
+        rm -rf $product_dir/lib
+        mv $product_dir/lib64 $product_dir/lib
+fi
