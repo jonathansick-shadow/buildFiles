@@ -1,3 +1,4 @@
+setupRequired(gcc)
 setupOptional("python")
 envAppend(PATH, ${PRODUCT_DIR}/bin)
 envAppend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
