@@ -1,2 +1,3 @@
+setupRequired(gcc)
 setupOptional(python)
 pathAppend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
