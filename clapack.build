@@ -16,14 +16,15 @@ make f2clib &&
 make blaslib &&
 
 # build the archive containing lapack source
+cd INSTALL && make && cd .. &&
 cd SRC && make && cd .. &&
 
 : install the .a files and include files &&
 product_dir=$(eups path 0)/$(eups flavor)/clapack/@VERSION@ &&
+mkdir -p $product_dir/{lib,include} &&
 
 cp INCLUDE/*.h $product_dir/include &&
 
-mkdir -p $product_dir/{lib,include} &&
 cp F2CLIBS/libf2c.* $product_dir/lib &&
 for p in lapack blas; do
     for s in a so dylib; do
