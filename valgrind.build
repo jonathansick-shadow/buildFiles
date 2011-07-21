@@ -2,12 +2,8 @@ curl -L \
      http://valgrind.org/downloads/@PRODUCT@-@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
 bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
-mkdir @PRODUCT@-@VERSION@-build &&
-cd @PRODUCT@-@VERSION@-build &&
+cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-../@PRODUCT@-@VERSION@-build/configure --prefix=$product_dir &&
+./configure --prefix=$product_dir &&
 make &&
-if [ ! -d $product_dir ]; then
-	mkdir -p $product_dir;
-fi &&
 make install
