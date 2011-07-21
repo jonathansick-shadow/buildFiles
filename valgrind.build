@@ -1,7 +1,7 @@
 curl -L \
      http://valgrind.org/downloads/@PRODUCT@-@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
-gunzip < @PRODUCT@-@VERSION@.tar.bz2 | tar -xj - &&
+bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
 mkdir @PRODUCT@-@VERSION@-build &&
 cd @PRODUCT@-@VERSION@-build &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
