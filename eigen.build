@@ -3,7 +3,7 @@ curl -L \
      http://bitbucket.org/eigen/eigen/get/@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
 bunzip2 @PRODUCT@-@VERSION@.tar.bz2 &&
-dirname=$(tar -tf eigen-@VERSION@.tar | perl -pe 's|/.*||; print; exit 0') &&
+dirname=`tar -tf eigen-@VERSION@.tar 2>/dev/null | perl -pe 's|/.*||; print; exit 0'` &&
 tar -xf @PRODUCT@-@VERSION@.tar &&
 rm -rf @PRODUCT@-@VERSION@ &&
 mv $dirname @PRODUCT@-@VERSION@ &&
