@@ -1,0 +1,29 @@
+curl -L \
+        http://www.netlib.org/lapack/@PRODUCT@-@VERSION@.tgz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+echo 'SHELL = /bin/sh' >> make.inc &&
+echo 'PLAT =' >> make.inc &&
+echo 'FORTRAN = gfortran' >> make.inc &&
+echo 'OPTS = -funroll-all-loops -O3 -fPIC' >> make.inc &&
+echo 'DRVOPTS = $(OPTS)' >> make.inc &&
+echo 'NOOPT = -fPIC' >> make.inc &&
+echo 'LOADER = gfortran' >> make.inc &&
+echo 'LOADOPTS =' >> make.inc &&
+echo 'TIMER = NONE' >> make.inc &&
+echo 'ARCH = ar' >> make.inc &&
+echo 'ARCHFLAGS = cr' >> make.inc &&
+echo 'RANLIB = ranlib' >> make.inc &&
+echo 'BLASLIB = ../../libblas.a' >> make.inc &&
+echo 'LAPACKLIB = liblapack.a' >> make.inc &&
+echo 'TMGLIB = libtmglib.a' >> make.inc &&
+echo 'EIGSRCLIB = libeigsrc.a' >> make.inc &&
+echo 'LINSRCLIB = liblinsrc.a' >> make.inc &&
+make blaslib &&
+make &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+if [ ! -d $product_dir ]; then
+	mkdir -p $product_dir/lib/
+fi &&
+mv liblapack.a libblas.a libtmglib.a $product_dir/lib/
