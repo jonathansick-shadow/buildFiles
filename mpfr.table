@@ -1,0 +1,2 @@
+setupRequired(gmp)
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
