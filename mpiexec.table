@@ -1,3 +1,2 @@
 setupRequired(mpich2)
-setupOptional(gcc)
 pathPrepend(PATH, ${PRODUCT_DIR}/bin)
