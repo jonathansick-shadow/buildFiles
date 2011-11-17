@@ -9,8 +9,4 @@ make &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
 fi &&
-make install &&
-if [ -d $product_dir/lib64 ]; then
-        rm -rf $product_dir/lib
-        mv $product_dir/lib64 $product_dir/lib
-fi
+make install
