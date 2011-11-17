@@ -4,7 +4,7 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir --with-gmp=$GMP_DIR --with-mpfr=$MPFR_DIR --with-mpc=$MPC_DIR &&
+./configure --prefix=$product_dir --with-gmp=$GMP_DIR --with-mpfr=$MPFR_DIR --with-mpc=$MPC_DIR --enable-languages=c,c++,fortran &&
 make &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
