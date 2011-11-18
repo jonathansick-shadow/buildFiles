@@ -6,7 +6,7 @@ rm -rf @PRODUCT@-@VERSION@ &&
 mv astrometry.net-@VERSION@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-make &&
+make -j 1 &&
 env INSTALL_DIR=$product_dir make install &&
 : "astrometry.net doesn't install include files and libraries, so we need to do it ourselves" &&
 for d in blind util libkd qfits-an qfits-an/src; do 
