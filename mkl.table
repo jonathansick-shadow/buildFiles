@@ -1,0 +1,13 @@
+# Example table file for the Intel Math Kernel Library
+#
+# NOTE: This is an example only!  Edit the below paths
+# according to your own particular installation.
+#
+# We add both LIBRARY_PATH and LD_LIBRARY_PATH because
+# we have two locations to add, which makes the basic
+# scons configuration difficult to use
+#
+envPrepend(LIBRARY_PATH, ${PRODUCT_DIR}/lib/em64t)
+envPrepend(LIBRARY_PATH, ${PRODUCT_DIR}/../lib/intel64)
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib/em64t)
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/../lib/intel64)
