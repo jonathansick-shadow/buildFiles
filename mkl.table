@@ -3,11 +3,13 @@
 # NOTE: This is an example only!  Edit the below paths
 # according to your own particular installation.
 #
-# We add both LIBRARY_PATH and LD_LIBRARY_PATH because
-# we have two locations to add, which makes the basic
-# scons configuration difficult to use
+# MKL_SYSTEM_DIR points to the system-installed location.
+# MKL_SYSTEM_LIBS are the library locations.
+# These two are used by mkl.cfg
 #
-envPrepend(LIBRARY_PATH, ${PRODUCT_DIR}/lib/em64t)
-envPrepend(LIBRARY_PATH, ${PRODUCT_DIR}/../lib/intel64)
-envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib/em64t)
-envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/../lib/intel64)
+# This playing around may not be necessary if LSST_CFG_PATH is set appropriately.
+#
+envSet(MKL_SYSTEM_DIR, /opt/intel/Compiler/11.1/072)
+envPrepend(MKL_SYSTEM_LIBS, ${MKL_SYSTEM_DIR}/lib/intel64)
+envPrepend(MKL_SYSTEM_LIBS, ${MKL_SYSTEM_DIR}/mkl/lib/em64t)
+envPrepend(LD_LIBRARY_PATH, ${MKL_SYSTEM_LIBS})
