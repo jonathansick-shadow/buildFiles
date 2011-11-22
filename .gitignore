@@ -1,5 +1,4 @@
-
-# /
-/config.log
-/.sconsign.dblite
-/.sconf_temp
+config.log
+.sconsign.dblite
+.sconf_temp
+*.cfgc
