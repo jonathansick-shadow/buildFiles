@@ -1,0 +1,13 @@
+curl -L \
+     http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/1.4.1p1/mpich2-1.4.1p1.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir --enable-shared &&
+make -j 1 &&
+if [ ! -d $product_dir ]; then
+	mkdir -p $product_dir;
+fi &&
+make -j 1 install
+
