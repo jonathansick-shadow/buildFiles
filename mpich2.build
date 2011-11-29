@@ -4,7 +4,7 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir --enable-shared &&
+./configure --prefix=$product_dir --enable-shared --enable-pbs-launcher &&
 make -j 1 &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
