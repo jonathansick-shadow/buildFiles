@@ -18,5 +18,5 @@ if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
         rm -rf $product_dir/lib
         mv $product_dir/lib64 $product_dir/lib
 fi &&
-@LSST CFG@ &&
-lsst_cfg @PRODUCT@ $product_dir
+@LSST UPS@ &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

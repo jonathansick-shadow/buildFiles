@@ -106,24 +106,28 @@ build_lsst() {
 }
 """
 
-# How to install "cfg" files for LSST third-party products (grab from git)
+# How to install "ups" files for LSST third-party products (grab from git)
 #
 # Third-party products' build files should contain:
-# @LSST CFG@ &&
-# lsst_cfg @PRODUCT@ <INSTALL-DIR> [GIT-HASH]
-hooks.config.distrib["builder"]["variables"]["LSST CFG"] = """
-lsst_cfg() {
-    if [ -z "$1" -o -z "$2" ]; then
-        echo "lsst_cfg requires at least two arguments"
+# @LSST UPS@ &&
+# lsst_ups @PRODUCT@ @VERSION@ <INSTALL-DIR> [GIT-HASH]
+hooks.config.distrib["builder"]["variables"]["LSST UPS"] = """
+lsst_ups() {
+    if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+        echo "lsst_cfg requires at least three arguments"
         exit 1
     fi
     productname=$1
-    installdir=$2
-    githash=$3
+    versionname=$2
+    installdir=$3
+    githash=$4
     gitrepo="git@git.lsstcorp.org:LSST/DMS/devenv/buildFiles.git"
     if [ -z "$githash" ]; then
         githash="HEAD"
     fi
+    currentdir=$(pwd)
+    git archive --verbose --format=tar --remote=$gitrepo --prefix=ups/ ${githash} ${productname}.build | tar --extract --verbose --directory $installdir &&
+    eups expandbuild -i ${installdir}/ups/${productname}.build -V $versionname
     git archive --verbose --format=tar --remote=$gitrepo --prefix=ups/ ${githash}:${productname} ${productname}.cfg | tar --extract --verbose --directory $installdir
 }
 """
