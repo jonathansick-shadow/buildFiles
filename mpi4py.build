@@ -17,4 +17,6 @@ ln -fs $product_dir/lib/python$python_version/site-packages  $product_dir/lib/py
 if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
         rm -rf $product_dir/lib
         mv $product_dir/lib64 $product_dir/lib
-fi
+fi &&
+@LSST CFG@ &&
+lsst_cfg @PRODUCT@ $product_dir
