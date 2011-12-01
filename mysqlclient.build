@@ -1,4 +1,5 @@
 # -*- sh -*-
+@LSST UPS@
 product="mysql" &&
 version=@VERSION.sub(r"[-+][0-9]+$", "")@ &&
 
@@ -28,4 +29,5 @@ if [ $(eups flavor) = DarwinX86 ]; then
              -e 'if(/libndb|cern.ch/) { $_ = ": " . $_; }' \
 	     update4coral.sh &&
     sh update4coral.sh $product_dir/.. @VERSION@
-fi
+fi &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

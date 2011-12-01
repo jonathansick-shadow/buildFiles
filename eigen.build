@@ -1,4 +1,5 @@
 # -*- sh -*-
+@LSST UPS@
 curl -L \
      http://bitbucket.org/eigen/eigen/get/@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
@@ -13,4 +14,5 @@ if [ ! -d $product_dir/include ]; then
    mkdir -p $product_dir/include
 fi &&
 cp -r Eigen $product_dir/include &&
-(cd $product_dir/include/Eigen; ln -fs Core Core.h)
+(cd $product_dir/include/Eigen; ln -fs Core Core.h) &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

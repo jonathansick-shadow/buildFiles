@@ -1,5 +1,5 @@
+@LSST UPS@
 version=@VERSION.sub(r"v3_|3\.", "3")@ &&
-
 curl -L \
 	ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/@PRODUCT@$version.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -10,4 +10,5 @@ cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
-make install
+make install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

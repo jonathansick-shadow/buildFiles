@@ -1,3 +1,4 @@
+@LSST UPS@
 curl -L \
 	http://www.astrometry.net/downloads/astrometry.net-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -12,4 +13,5 @@ env INSTALL_DIR=$product_dir make install &&
 for d in blind util libkd qfits-an qfits-an/src; do 
 	mkdir -p $product_dir/include/$d &&
 	cp $d/*.h $product_dir/include
-done
+done &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

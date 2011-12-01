@@ -1,3 +1,4 @@
+@LSST UPS@
 product=@PRODUCT.title()@ &&
 version=@VERSION.replace(".", "_")@ &&
 
@@ -11,4 +12,5 @@ cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
-make install
+make install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

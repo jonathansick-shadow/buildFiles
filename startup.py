@@ -108,8 +108,9 @@ build_lsst() {
 
 # How to install "ups" files for LSST third-party products (grab from git)
 #
-# Third-party products' build files should contain:
-# @LSST UPS@ &&
+# Third-party products' build files should contain at the top:
+# @LSST UPS@
+# and then later:
 # lsst_ups @PRODUCT@ @VERSION@ <INSTALL-DIR> [GIT-HASH]
 hooks.config.distrib["builder"]["variables"]["LSST UPS"] = """
 lsst_ups() {

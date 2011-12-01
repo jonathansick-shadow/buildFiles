@@ -1,3 +1,4 @@
+@LSST UPS@
 curl -L \
      http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/1.4.1p1/mpich2-1.4.1p1.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -9,5 +10,5 @@ make -j 1 &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
 fi &&
-make -j 1 install
-
+make -j 1 install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
