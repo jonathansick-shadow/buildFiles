@@ -1,3 +1,4 @@
+@LSST UPS@
 curl -L \
     http://mpi4py.googlecode.com/files/mpi4py-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -18,5 +19,4 @@ if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
         rm -rf $product_dir/lib
         mv $product_dir/lib64 $product_dir/lib
 fi &&
-@LSST UPS@ &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
