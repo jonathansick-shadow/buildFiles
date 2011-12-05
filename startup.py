@@ -83,7 +83,7 @@ hooks.config.Eups.versionIncrementer = lsstVersionIncrementer
 #
 # LSST products' build files should contain:
 # @LSST BUILD@
-# build_lsst @PRODUCT@ @VERSION@ @PRODUCT.replace("_", "/")@ @REPOVERSION@
+# build_lsst @PRODUCT@ @VERSION@ @REPOVERSION@ [repository name]
 hooks.config.distrib["builder"]["variables"]["LSST BUILD"] = """
 build_lsst() {
     if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
