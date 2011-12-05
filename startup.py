@@ -86,14 +86,17 @@ hooks.config.Eups.versionIncrementer = lsstVersionIncrementer
 # build_lsst @PRODUCT@ @VERSION@ @PRODUCT.replace("_", "/")@ @REPOVERSION@
 hooks.config.distrib["builder"]["variables"]["LSST BUILD"] = """
 build_lsst() {
-    if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then
-        echo "build_lsst requires four arguments"
+    if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+        echo "build_lsst requires at least three arguments"
         exit 1
     fi
     productname=$1
     versionname=$2
-    reponame=$3
-    repoversion=$4
+    repoversion=$3
+    reponame=$4
+    if [ -z "$reponame" ]; then
+        reponame=$productname
+    fi    
     builddir=${productname}-${versionname}
     if [ -d $builddir ]; then
         rm -rf $builddir
