@@ -96,7 +96,7 @@ build_lsst() {
     reponame=$4
     if [ -z "$reponame" ]; then
         reponame=$productname
-    fi    
+    fi
     builddir=${productname}-${versionname}
     if [ -d $builddir ]; then
         rm -rf $builddir
