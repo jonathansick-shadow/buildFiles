@@ -1,11 +1,15 @@
 @LSST UPS@
 curl -L \
-     http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/1.4.1p1/mpich2-1.4.1p1.tar.gz \
+     http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/@VERSION@/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir --enable-shared --enable-pbs-launcher &&
+pbs_options="--enable-pbs-launcher" &&
+if [ -n $PBS_DIR ]; then
+    pbs_options += " --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
+fi &&
+./configure --prefix=$product_dir --enable-shared $pbs_options &&
 make -j 1 &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
