@@ -7,7 +7,7 @@ cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 pbs_options="--enable-pbs-launcher" &&
 if [ -n $PBS_DIR ]; then
-    pbs_options += " --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
+    pbs_options+=" --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
 fi &&
 ./configure --prefix=$product_dir --enable-shared $pbs_options &&
 make -j 1 &&
