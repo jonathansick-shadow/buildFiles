@@ -118,7 +118,7 @@ build_lsst() {
 hooks.config.distrib["builder"]["variables"]["LSST UPS"] = """
 lsst_ups() {
     if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
-        echo "lsst_cfg requires at least three arguments"
+        echo "lsst_ups requires at least three arguments"
         exit 1
     fi
     productname=$1
