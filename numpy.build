@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 curl -L \
 	http://downloads.sourceforge.net/numpy/numpy-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&

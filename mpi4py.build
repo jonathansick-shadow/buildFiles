@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 curl -L \
     http://mpi4py.googlecode.com/files/mpi4py-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&

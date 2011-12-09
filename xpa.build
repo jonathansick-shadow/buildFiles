@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 curl -L \
 	http://hea-www.harvard.edu/saord/download/xpa/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&

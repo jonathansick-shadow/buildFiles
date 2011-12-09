@@ -1,5 +1,5 @@
 # -*- sh -*-
-@LSST UPS@
+@LSST UPS@ &&
 product="mysql" &&
 version=@VERSION.sub(r"[-+][0-9]+$", "")@ &&
 

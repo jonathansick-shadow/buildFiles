@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 distversion=@VERSION.sub('\+.*$", "")@ &&
 curl http://www.fftw.org/fftw-$distversion.tar.gz > @PRODUCT@-@VERSION@.tar.gz &&

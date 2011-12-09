@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 # their version name
 version=@VERSION.replace(".", "_")@ &&
 # but 1_35_0 is installed as 1_35 grrrrr

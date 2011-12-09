@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 curl -L \
      http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/@VERSION@/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&

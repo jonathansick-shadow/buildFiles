@@ -1,4 +1,4 @@
-@LSST UPS@
+@LSST UPS@ &&
 version=@VERSION.sub(r"v3_|3\.", "3")@ &&
 curl -L \
 	ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/@PRODUCT@$version.tar.gz \

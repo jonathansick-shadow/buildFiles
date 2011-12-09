@@ -1,5 +1,5 @@
 # -*- sh -*-
-@LSST UPS@
+@LSST UPS@ &&
 curl -L \
      http://bitbucket.org/eigen/eigen/get/@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
