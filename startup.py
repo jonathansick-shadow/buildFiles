@@ -102,7 +102,7 @@ build_lsst() {
         rm -rf $builddir
     fi
     mkdir $builddir &&
-    git archive --format=tar --remote=http://git.lsstcorp.org/git/LSST/DMS/${reponame}.git ${repoversion} | tar -x -C $builddir &&
+    git archive --format=tar --remote=git://git.lsstcorp.org/LSST/DMS/${reponame}.git ${repoversion} | tar -x -C $builddir &&
     cd $builddir &&
     setup -r . &&
     scons opt=3 install version=$versionname
@@ -125,7 +125,7 @@ lsst_ups() {
     versionname=$2
     installdir=$3
     githash=$4
-    gitrepo="http://git.lsstcorp.org/git/LSST/DMS/devenv/buildFiles.git"
+    gitrepo="git://git.lsstcorp.org/LSST/DMS/devenv/buildFiles.git"
     if [ -z "$githash" ]; then
         githash="HEAD"
     fi
