@@ -9,6 +9,6 @@ mv @PRODUCT@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
-make &&
+make shared &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
