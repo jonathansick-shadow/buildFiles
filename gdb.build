@@ -1,0 +1,12 @@
+curl -L \
+     http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir &&
+make &&
+if [ ! -d $product_dir ]; then
+	mkdir -p $product_dir;
+fi &&
+make install
