@@ -9,4 +9,8 @@ make &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
 fi &&
-make install
+make install &&
+if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
+   mv $product_dir/lib64/lib* $product_dir/lib
+   rmdir $product_dir/lib64
+fi
