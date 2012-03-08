@@ -13,25 +13,7 @@ if true; then
    mv @PRODUCT@_$version @PRODUCT@-@VERSION@
 fi &&
 cd @PRODUCT@-@VERSION@ &&
-cat <<'EOT' >> tools/build/v2/user-config.jam &&
-using mpi  :  ${MPICH2_DIR}/bin/mpicxx
-            : <include>${MPICH2_DIR}/include 
-              <cxxflags>-DMPICH_IGNORE_CXX_SEEK 
-              <library-path>${MPICH2_DIR}/lib 
-              <find-shared-library>mpich  ;
-EOT
-cat <<'EOT' >> tools/build/v2/tools/darwin.jam &&
-# Link with MPI on darwin
-flags darwin.link.dll OPTIONS : -L$MPICH2_DIR/lib -lpmpich -lmpich ;
-EOT
-case $(eups flavor) in
-   Darwin*)
-      toolset="toolset=darwin";;
-   *)
-      toolset= ;;
-esac &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-boostOpts="--prefix=$product_dir $toolset runtime-link=shared" &&
-bjam $boostOpts &&
-bjam $boostOpts install &&
+./bootstrap.sh &&
+./bjam install --prefix=$product_dir &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
