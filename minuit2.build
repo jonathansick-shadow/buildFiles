@@ -5,8 +5,6 @@ curl -L \
     http://www.cern.ch/mathlibs/sw/$version/Minuit2/Minuit2-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-rm -rf @PRODUCT@-@VERSION@ &&
-mv $product-$version @PRODUCT@-@VERSION@ &&
 cd Minuit2-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
