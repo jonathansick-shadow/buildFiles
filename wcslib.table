@@ -1,0 +1,2 @@
+setupRequired(cfitsio >= 3.006)
+pathPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)

@@ -1,6 +1,6 @@
 @LSST UPS@ &&
 curl -L \
-    http://prdownloads.sourceforge.net/scons/scons-@VERSION@.tar.gz \
+    http://pysqlite.googlecode.com/files/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
@@ -20,4 +20,3 @@ if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
         mv $product_dir/lib64 $product_dir/lib
 fi &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
-

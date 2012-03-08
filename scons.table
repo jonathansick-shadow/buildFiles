@@ -1,1 +1,3 @@
-../sconsUtils/ups/scons.table
+setupRequired(python >= 2.5.2)
+envPrepend(PATH, ${PRODUCT_DIR}/bin)
+envPrepend(MANPATH, ${PRODUCT_DIR}/man)

@@ -1,14 +1,11 @@
 @LSST UPS@ &&
 curl -L \
-    http://dev.lsstcorp.org/pkgs/std/w12/external/wcslib/@VERSION@/wcslib-@VERSION@.tar.bz2 \
-> @PRODUCT@-@VERSION@.tar.bz2 &&
-bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
+    http://download.sourceforge.net/libpng/@PRODUCT@-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
-
-
-
