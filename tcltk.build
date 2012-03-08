@@ -2,18 +2,18 @@
 curl -L \
     http://prdownloads.sourceforge.net/tcl/tcl@VERSION@-src.tar.gz \
 > tcl-@VERSION@.tar.gz &&
-gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-cd tcl@VERSION@ &&
+gunzip < tcl-@VERSION@.tar.gz | tar -xf - &&
+cd tcl@VERSION@/unix/ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
 make install &&
-cd .. &&
+cd ../.. &&
 curl -L \
     http://prdownloads.sourceforge.net/tcl/tk@VERSION@-src.tar.gz \
-> tk@VERSION@.tar.gz &&
-gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-cd @PRODUCT@-@VERSION@ &&
+> tk-@VERSION@.tar.gz &&
+gunzip < tk-@VERSION@.tar.gz | tar -xf - &&
+cd tk@VERSION@/unix/ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir --with-tcl=$product_dir/lib &&
 make &&
