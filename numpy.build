@@ -10,6 +10,9 @@ if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir/lib/python$python_version/site-packages
 fi &&
 cd @PRODUCT@-@VERSION@ &&
+export BLAS=None &&
+export LAPACK=None &&
+export ATLAS=None &&
 python setup.py build --fcompiler=gnu95 &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
