@@ -1,5 +1,5 @@
 @LSST UPS@ &&
-version = $(echo @VERSION@ | awk 'BEGIN {FS="."} {printf "%d%02d%02d00", $1, $2, $3}') &&
+version=$(echo @VERSION@ | awk 'BEGIN {FS="."} {printf "%d%02d%02d00", $1, $2, $3}') &&
 curl -L \
     http://www.sqlite.org/sqlite-autoconf-$version.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
