@@ -7,7 +7,7 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd Minuit2-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir &&
+./configure --prefix=$product_dir --disable-openmp &&
 make &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
