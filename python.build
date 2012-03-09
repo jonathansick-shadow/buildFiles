@@ -128,7 +128,7 @@ cp Modules/Setup.lsst Modules/Setup &&
 
 ### Now we can just install in the regular way...
 
-./configure --prefix=$product_dir &&
+./configure --prefix=$product_dir --enable-shared &&
 make &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
