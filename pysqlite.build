@@ -10,6 +10,8 @@ if [ ! -d $product_dir ]; then
         mkdir -p $product_dir/lib/python$python_version/site-packages
 fi &&
 cd @PRODUCT@-@VERSION@ &&
+echo "include_dirs=$SQLITE_DIR/include" >> setup.cfg &&
+echo "library_dirs=$SQLITE_DIR/lib" >> setup.cfg &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
    mkdir -p $product_dir/lib/python
