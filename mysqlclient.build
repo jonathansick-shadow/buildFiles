@@ -1,33 +1,13 @@
 # -*- sh -*-
 @LSST UPS@ &&
-product="mysql" &&
-version=@VERSION.sub(r"[-+][0-9]+$", "")@ &&
-
-extra="" &&
-if [ $(eups flavor) = DarwinX86 ]; then
-   extra="$(eups flavor)/"
-fi &&
-
-if true; then
-    curl -L \
-	http://dev.lsstcorp.org/dmspkgs/external/@PRODUCT@/@VERSION@/${extra}$product-$version.tar.gz \
-    > @PRODUCT@-@VERSION@.tar.gz &&
-    gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-    rm -rf @PRODUCT@-@VERSION@ &&
-    mv $product-$version @PRODUCT@-@VERSION@
-fi &&
-cd @PRODUCT@-@VERSION@ &&
+curl -L \
+    http://dev.lsstcorp.org/pkgs/std/w12/external/mysqlclient/@VERSION@/mysql-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd mysql-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir --without-server --enable-thread-safe-client &&
 make &&
 make install &&
 (cd $product_dir/lib && ln -fs mysql/* . ) &&
-
-if [ $(eups flavor) = DarwinX86 ]; then
-    curl -L http://dev.lsstcorp.org/pkgs/ext/@PRODUCT@/@VERSION@/$(eups flavor)/update4coral.sh -o update4coral.sh &&
-    perl -pi -e "s|(setup mysqlclient).*|\1 -r $product_dir|;" \
-             -e 'if(/libndb|cern.ch/) { $_ = ": " . $_; }' \
-	     update4coral.sh &&
-    sh update4coral.sh $product_dir/.. @VERSION@
-fi &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
