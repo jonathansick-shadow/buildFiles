@@ -1,13 +1,13 @@
 curl -L \
-     http://llvm.org/releases/@VERSION@/llvm-@VERSION@.tgz \
+     http://llvm.org/releases/@VERSION@/llvm-@VERSION@.tar.gz \
 > llvm-@VERSION@.tar.gz &&
 gunzip < llvm-@VERSION@.tar.gz | tar -xf - &&
 curl -L \
-     http://llvm.org/releases/@VERSION@/clang-@VERSION@.tgz \
+     http://llvm.org/releases/@VERSION@/clang-@VERSION@.tar.gz \
 > clang-@VERSION@.tar.gz &&
 gunzip < clang-@VERSION@.tar.gz | tar -xf - &&
-mv clang-@VERSION@ llvm-@VERSION@/tools/clang &&
-cd llvm-@VERSION@ &&
+mv clang-@VERSION@.src llvm-@VERSION@.src/tools/clang &&
+cd llvm-@VERSION@.src &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make &&
