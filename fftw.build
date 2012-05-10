@@ -1,8 +1,8 @@
 @LSST UPS@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 distversion=@VERSION.sub('\+.*$", "")@ &&
-(curl http://www.fftw.org/fftw-$distversion.tar.gz > @PRODUCT@-@VERSION@.tar.gz ||
-curl ftp://ftp.fftw.org/pub/fftw/old/fftw-$distversion.tar.gz > @PRODUCT@-@VERSION@.tar.gz) &&
+(curl --fail http://www.fftw.org/fftw-$distversion.tar.gz > @PRODUCT@-@VERSION@.tar.gz ||
+curl --fail ftp://ftp.fftw.org/pub/fftw/old/fftw-$distversion.tar.gz > @PRODUCT@-@VERSION@.tar.gz) &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 if [ "fftw-$distversion" != "fftw-@VERSION@" ]; then
    mv fftw-$distversion fftw-@VERSION@
