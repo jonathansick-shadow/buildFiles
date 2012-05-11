@@ -1,9 +1,14 @@
+PCRE_VERSION=8.30 &&
 @LSST UPS@ &&
 curl -L \
 	http://downloads.sourceforge.net/swig/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
+curl -L \
+        http://downloads.sourceforge.net/project/pcre/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.gz \
+> pcre-${PCRE_VERSION}.tar.gz &&
+./Tools/pcre-build.sh &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir --without-php4 &&
 make &&
