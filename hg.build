@@ -1,3 +1,4 @@
+@LSST UPS@ &&
 curl -L \
      http://mercurial.selenic.com/release/mercurial-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -9,7 +10,6 @@ if [ ! -d $product_dir ]; then
         mkdir -p $product_dir
         mkdir -p $product_dir/lib/python$python_version/site-packages
 fi &&
-cd @PRODUCT@-@VERSION@ &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
    mkdir -p $product_dir/lib/python
