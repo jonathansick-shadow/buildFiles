@@ -1,0 +1,7 @@
+setupOptional(python)
+envUnset(PRODUCT_DIR)
+envPrepend(PATH, ${PRODUCT_DIR}/libexec/git-core)
+envPrepend(PATH, ${PRODUCT_DIR}/bin)
+envPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
+envPrepend(PERL5LIB, ${PRODUCT_DIR}/lib)
+envPrepend(PERL5LIB, ${PRODUCT_DIR}/lib64)
