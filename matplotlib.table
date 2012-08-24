@@ -1,3 +1,4 @@
 setupRequired(python)
 setupRequired(numpy)
+setupRequired(libpng)
 pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
