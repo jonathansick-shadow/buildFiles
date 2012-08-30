@@ -13,7 +13,7 @@ if [ -n $PBS_DIR ]; then
         pbs_options+=" --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
     fi
 fi &&
-./configure --prefix=$product_dir --enable-shared $pbs_options &&
+./configure --prefix=$product_dir --enable-shared --disable-f77 --disable-fc $pbs_options &&
 make -j 1 &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
