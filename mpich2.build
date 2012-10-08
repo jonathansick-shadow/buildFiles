@@ -6,7 +6,7 @@ gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 pbs_options="--enable-pbs-launcher" &&
-if [ -n $PBS_DIR ]; then
+if [ -n "${PBS_DIR:+x}" ]; then
     if (( $(echo $PBS_DIR | tr "[:upper:]" "[:lower:]") == "none" )); then
         pbs_options=""
     else
