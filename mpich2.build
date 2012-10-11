@@ -5,12 +5,15 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-pbs_options="--enable-pbs-launcher" &&
+pbs_options="" &&
 if [ -n "${PBS_DIR:+x}" ]; then
-    if (( $(echo $PBS_DIR | tr "[:upper:]" "[:lower:]") == "none" )); then
-        pbs_options=""
-    else
-        pbs_options+=" --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
+    pbs_options+=" --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
+else
+    if [ -n "$(PBS_INCLUDE_DIR:+x}" ]; then
+        pbs_options+=" --with-pbs-include=$PBS_INCLUDE_DIR"
+    fi
+    if [ -n "$(PBS_LIB_DIR:+x}" ]; then
+        pbs_options+=" --with-pbs-lib=$PBS_LIB_DIR"
     fi
 fi &&
 ./configure --prefix=$product_dir --enable-shared --disable-f77 --disable-fc $pbs_options &&
