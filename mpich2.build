@@ -9,10 +9,10 @@ pbs_options="" &&
 if [ -n "${PBS_DIR:+x}" ]; then
     pbs_options+=" --with-pbs-include=$PBS_DIR/include --with-pbs-lib=$PBS_DIR/lib"
 else
-    if [ -n "$(PBS_INCLUDE_DIR:+x}" ]; then
+    if [ -n "${PBS_INCLUDE_DIR:+x}" ]; then
         pbs_options+=" --with-pbs-include=$PBS_INCLUDE_DIR"
     fi
-    if [ -n "$(PBS_LIB_DIR:+x}" ]; then
+    if [ -n "${PBS_LIB_DIR:+x}" ]; then
         pbs_options+=" --with-pbs-lib=$PBS_LIB_DIR"
     fi
 fi &&
