@@ -131,4 +131,14 @@ cp Modules/Setup.lsst Modules/Setup &&
 ./configure --prefix=$product_dir --enable-shared &&
 make &&
 make install &&
+
+### Also install setuptools, as a convenience for the user
+curl -L \
+    http://peak.telecommunity.com/dist/ez_setup.py \
+> ez_setup.py &&
+PATH=${product_dir}/bin:$PATH &&
+LD_LIBRARY_PATH=${product_dir}/lib:$LD_LIBRARY_PATH &&
+DYLD_LIBRARY_PATH=${product_dir}/lib:$DYLD_LIBRARY_PATH &&
+python ez_setup.py &&
+
 lsst_ups @PRODUCT@ @VERSION@ $product_dir

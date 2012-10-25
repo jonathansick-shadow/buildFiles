@@ -132,7 +132,7 @@ lsst_ups() {
     currentdir=$(pwd)
     git archive --verbose --format=tar --remote=$gitrepo --prefix=ups/ ${githash} ${productname}.build | tar --extract --verbose --directory $installdir &&
     eups expandbuild -i ${installdir}/ups/${productname}.build -V $versionname
-    git archive --verbose --format=tar --remote=$gitrepo --prefix=ups/ ${githash}:${productname} | tar --extract --verbose --directory $installdir
+    git archive --verbose --format=tar --remote=$gitrepo --prefix=ups/ ${githash}:${productname} | tar --extract --verbose --directory $installdir || echo "No additional files required: ignore error"
 }
 """
 

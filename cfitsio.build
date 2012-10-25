@@ -10,5 +10,8 @@ cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir &&
 make shared &&
+make fpack funpack imcopy &&
+mkdir -p $product_dir/bin &&
+cp fpack funpack imcopy $product_dir/bin &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir

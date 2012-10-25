@@ -1,0 +1,11 @@
+@LSST UPS@ &&
+curl -L \
+    http://ftp.postgresql.org/pub/source/v@VERSION@/postgresql-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd postgresql-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+./configure --prefix=$product_dir &&
+make &&
+make install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir

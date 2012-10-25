@@ -1,0 +1,16 @@
+@LSST UPS@ &&
+majorminor=$(echo @VERSION@ | sed 's|^\([0-9]\{1,\}\)\.\([0-9]\{1,\}\)\..*|\1-\2|') &&
+curl -L \
+    http://initd.org/psycopg/tarballs/PSYCOPG-$majorminor/psycopg2-@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-@VERSION@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+python_version=$(python -c "import distutils.sysconfig as ds; print ds.get_python_version()") &&
+if [ ! -d $product_dir ]; then
+        mkdir -p $product_dir
+        mkdir -p $product_dir/lib/python$python_version/site-packages
+fi &&
+python setup.py install --prefix=$product_dir &&
+ln -fs $product_dir/lib/python$python_version/site-packages $product_dir/lib/python &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
