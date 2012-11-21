@@ -1,6 +1,6 @@
 @LSST UPS@ &&
-curl -L \
-    https://github.com/healpy/healpy/archive/@VERSION@.tar.gz \
+curl -L -k \
+    http://github.com/healpy/healpy/archive/@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
