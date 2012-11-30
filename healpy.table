@@ -1,4 +1,5 @@
 setupRequired(python)
 setupRequired(numpy)
 setupRequired(cfitsio)
+setupRequired(matplotlib)
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
