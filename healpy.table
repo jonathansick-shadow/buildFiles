@@ -1,0 +1,4 @@
+setupRequired(python)
+setupRequired(numpy)
+setupRequired(cfitsio)
+envPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
