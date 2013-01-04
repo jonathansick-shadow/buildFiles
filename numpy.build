@@ -13,8 +13,8 @@ cd @PRODUCT@-@VERSION@ &&
 export BLAS=None &&
 export LAPACK=None &&
 export ATLAS=None &&
-export CFLAGS="" &&
-export LDFLAGS="" &&
+unset CFLAGS &&
+unset LDFLAGS &&
 python setup.py build --fcompiler=gnu95 &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
