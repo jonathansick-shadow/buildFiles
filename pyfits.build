@@ -9,6 +9,7 @@ if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir/lib/python$python_version/site-packages
 fi &&
 cd @PRODUCT@-@VERSION@ &&
+PYTHONPATH=${product_dir}/lib/python$python_version/site-packages:$PYTHONPATH &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
    mkdir -p $product_dir/lib/python
