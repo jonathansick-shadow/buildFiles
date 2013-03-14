@@ -1,3 +1,4 @@
+@LSST UPS@ &&
 curl -L \
     http://pypi.python.org/packages/source/p/pyfits/pyfits-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
@@ -18,4 +19,6 @@ ln -fs $product_dir/lib/python$python_version/site-packages  $product_dir/lib/py
 if [ $(eups flavor) = Linux64 -a -d $product_dir/lib64 ]; then
 	rm -rf $product_dir/lib
 	mv $product_dir/lib64 $product_dir/lib
-fi
+fi &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
+
