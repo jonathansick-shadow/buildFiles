@@ -1,7 +1,7 @@
 curl -L \
-     http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@VERSION@.tar.gz \
-> @PRODUCT@-@VERSION@.tar.gz &&
-gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+     http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@VERSION@.tar.bz2 \
+> @PRODUCT@-@VERSION@.tar.bz2 &&
+bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 MAKEFLAGS="" ./configure --prefix=$product_dir &&
