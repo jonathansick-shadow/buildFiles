@@ -1,3 +1,4 @@
+@LSST UPS@ &&
 curl -L \
      http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
@@ -13,4 +14,5 @@ make install &&
 if [ -d $product_dir/lib64 ]; then
         rm -rf $product_dir/lib
         mv $product_dir/lib64 $product_dir/lib
-fi
+fi &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
