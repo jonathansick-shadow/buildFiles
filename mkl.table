@@ -11,5 +11,6 @@
 #
 envSet(MKL_SYSTEM_DIR, /opt/intel/Compiler/11.1/072)
 envPrepend(MKL_SYSTEM_LIBS, ${MKL_SYSTEM_DIR}/lib/intel64)
+envPrepend(LD_LIBRARY_PATH, ${MKL_SYSTEM_DIR}/lib/intel64)
 envPrepend(MKL_SYSTEM_LIBS, ${MKL_SYSTEM_DIR}/mkl/lib/em64t)
-envPrepend(LD_LIBRARY_PATH, ${MKL_SYSTEM_LIBS})
+envPrepend(LD_LIBRARY_PATH, ${MKL_SYSTEM_DIR}/mkl/lib/em64t)
