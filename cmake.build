@@ -1,6 +1,6 @@
 @LSST UPS@ &&
 curl -L \
-    http://www.cmake.org/files/v$(echo @VERSION@ | sed 's|^\(.*\..*\)\..*|\1|')/@PRODUCT@-@VERSION@.tar.gz \
+    http://www.cmake.org/files/v$(echo @VERSION@ | sed 's|^\([[:digit:]]*\.[[:digit:]]*\)\..*|\1|')/@PRODUCT@-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
