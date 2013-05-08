@@ -24,7 +24,7 @@ curl -L \
     https://github.com/ktf/igprof/archive/@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-cd @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-$(echo @VERSION@ | sed 's|^v||') &&
 cmake -DCMAKE_INSTALL_PREFIX=$product_dir -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-g -O3" . &&
 make &&
 make install &&
