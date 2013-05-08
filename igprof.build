@@ -20,7 +20,7 @@ cd libunwind-1.1 &&
 ./configure --prefix=$product_dir CPPFLAGS="-I$product_dir/include" CFLAGS="-g -O3" --disable-block-signals &&
 make install &&
 cd ../ &&
-curl -L \
+curl -Lk \
     http://github.com/ktf/igprof/archive/@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
