@@ -5,6 +5,7 @@ curl -L \
 bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+( git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD @PRODUCT@-@VERSION@-shrln.patch | tar --extract --verbose && patch -p0 configure @PRODUCT@-@VERSION@-shrln.patch || echo Unable to apply patch ) &&
 ./configure --prefix=$product_dir &&
 make -j 1 &&
 make -j 1 install &&

@@ -1,5 +1,7 @@
-setupRequired(tcltk)
-setupOptional(gcc)
-envPrepend(PATH, ${PRODUCT_DIR}/bin)
+if (type == build) {
+   setupRequired(cmake)
+}
+
 envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
 envPrepend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
+envPrepend(PATH, ${PRODUCT_DIR}/bin)

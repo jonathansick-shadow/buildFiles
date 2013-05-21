@@ -1,0 +1,13 @@
+diff --git a/configure b/configure
+index 719600e..b975062 100755
+--- a/configure
++++ b/configure
+@@ -9839,7 +9839,7 @@ if test "x$ac_cv_c_compiler_gnu" = xyes ; then
+     SONAME="libwcs.$SHVER.dylib"
+     SHRLD="$SHRLD -dynamiclib -single_module"
+     SHRLD="$SHRLD -compatibility_version $SHVER -current_version $LIBVER"
+-    SHRLN=
++    SHRLN="libwcs.dylib"
+
+     case "$build_cpu" in
+     powerpc*)

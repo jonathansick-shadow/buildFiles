@@ -1,0 +1,32 @@
+# igprof build
+# We actually build libatomic_ops and libunwind in addition to igprof.  Didn't see the point in putting
+# those in as separate products, since they wouldn't be used by anyone (at least, not yet).
+
+@LSST UPS@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+curl -L \
+    http://www.hpl.hp.com/research/linux/atomic_ops/download/libatomic_ops-7.2d.tar.gz \
+> libatomic_ops-7.2d.tar.gz &&
+gunzip < libatomic_ops-7.2d.tar.gz | tar -xf - &&
+cd libatomic_ops-7.2 &&
+./configure --prefix=$product_dir &&
+make install &&
+cd ../ &&
+curl -L \
+    http://download.savannah.gnu.org/releases/libunwind/libunwind-1.1.tar.gz \
+> libunwind-1.1.tar.gz &&
+gunzip < libunwind-1.1.tar.gz | tar -xf - &&
+cd libunwind-1.1 &&
+./configure --prefix=$product_dir CPPFLAGS="-I$product_dir/include" CFLAGS="-g -O3" --disable-block-signals &&
+make install &&
+cd ../ &&
+curl -Lk \
+    http://github.com/ktf/igprof/archive/@VERSION@.tar.gz \
+> @PRODUCT@-@VERSION@.tar.gz &&
+gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
+cd @PRODUCT@-$(echo @VERSION@ | sed 's|^v||') &&
+sed -i 's|-Werror||g' CMakeLists.txt &&
+cmake -DCMAKE_INSTALL_PREFIX=$product_dir -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="-g -O3" . &&
+make &&
+make install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
