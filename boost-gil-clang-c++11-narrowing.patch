@@ -1,0 +1,11 @@
+--- boost/gil/channel_algorithm.hpp	2010-10-11 11:51:55.000000000 -0400
++++ boost/gil/channel_algorithm-fixed.hpp	2012-08-23 17:56:07.862062639 -0400
+@@ -51,7 +51,7 @@
+ 
+ 
+ template <typename UnsignedIntegralChannel>
+-struct unsigned_integral_max_value : public mpl::integral_c<UnsignedIntegralChannel,-1> {};
++struct unsigned_integral_max_value : public mpl::integral_c<UnsignedIntegralChannel,static_cast<UnsignedIntegralChannel>(-1)> {};
+ 
+ template <>
+ struct unsigned_integral_max_value<uint8_t> : public mpl::integral_c<uint32_t,0xFF> {};
