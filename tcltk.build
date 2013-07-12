@@ -15,7 +15,7 @@ curl -L \
 gunzip < tk-@VERSION@.tar.gz | tar -xf - &&
 cd tk@VERSION@/unix/ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir --with-tcl=$product_dir/lib &&
+./configure --prefix=$product_dir --with-tcl=$product_dir/lib --disable-xft &&
 make &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir

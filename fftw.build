@@ -7,11 +7,15 @@ gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 if [ "fftw-$distversion" != "fftw-@VERSION@" ]; then
    mv fftw-$distversion fftw-@VERSION@
 fi &&
-cd fftw-@VERSION@ &&
-./configure --prefix=$product_dir --enable-threads --enable-shared &&
-make &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir;
 fi &&
-make install &&
+cd fftw-@VERSION@ &&
+build_fftw() {
+    ./configure --prefix=$product_dir --disable-fortran --enable-shared $1 &&
+    make &&
+    make install
+} &&
+build_fftw &&
+build_fftw --enable-float &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir

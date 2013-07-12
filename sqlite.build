@@ -6,7 +6,8 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd sqlite-autoconf-$version &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+CFLAGS="-Os" &&
 ./configure --prefix=$product_dir &&
 make &&
-make install &&
+make -j1 install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir

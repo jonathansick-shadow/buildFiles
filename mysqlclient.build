@@ -6,7 +6,25 @@ curl -L \
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd mysql-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./configure --prefix=$product_dir --without-server --enable-thread-safe-client &&
+
+
+# Apply patch for clang
+C=$(basename "$CC")
+[ "${C:0:5}" == "clang" ] && {
+    patch -p1 < ../clang-preprocessor-output-difference.patch
+}
+   git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD mysqlclient-5.1.65-clang-preprocessor-output-difference.patch | tar --extract --verbose
+   patch -p1 < mysqlclient-5.1.65-clang-preprocessor-output-difference.patch || echo Unable to apply patch
+fi &&
+
+./configure --prefix=$product_dir --without-server --enable-thread-safe-client --enable-local-infile &&
+
+# Hack for clang compatibility on Linux
+if [ "${C:0:5}" == "clang" ] && [ $($CC -v 2>&1 | grep -q '^clang version') ] && [ $($CC -v 2>&1 | grep -q 'Target: .*linux.*') ]; then
+    echo '/* LSST: clang compatibility hack */' >> include/config.h
+    echo '#define HAVE_GETHOSTBYNAME_R_GLIBC2_STYLE 1' >> include/config.h
+fi &&
+
 make &&
 make install &&
 (cd $product_dir/lib && ln -fs mysql/* . ) &&

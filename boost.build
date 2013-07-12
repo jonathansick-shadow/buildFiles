@@ -14,6 +14,34 @@ if true; then
 fi &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-./bootstrap.sh &&
-./bjam install --prefix=$product_dir &&
+
+# Parallelisation on Linux
+parallel=-j2 &&
+if [ -e /proc/cpuinfo ]; then
+    nproc=`grep '^processor' /proc/cpuinfo | sort -r | head -1 | sed -e 's/^.*: //'`
+    ncores=`grep '^cpu cores' /proc/cpuinfo | head -1 | sed -e 's/^.*: //'`
+    [ -n "$nproc" -a -n "$ncores" ] && {
+        totcores=$(( ($nproc + 1) * $ncores ))
+        if [ "$totcores" -gt 4 ]; then
+            parallel=-j6
+        elif [ "$totcores" -gt 2 ]; then
+            parallel=-j4
+        fi
+    }
+fi &&
+
+# Apply patch
+if [ @VERSION@ == "1.51.0" ]; then
+   git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD boost-gil-clang-c++11-narrowing.patch | tar --extract --verbose
+   patch -p0 boost/gil/channel_algorithm.hpp < boost-gil-clang-c++11-narrowing.patch || echo Unable to apply patch
+fi &&
+
+# Test for clang
+C=$(basename "$CXX")
+if [ "${C:0:5}" == "clang" ]; then
+    toolset="toolset=clang"
+fi &&
+
+./bootstrap.sh --prefix=$product_dir &&
+./b2 $parallel $toolset install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
