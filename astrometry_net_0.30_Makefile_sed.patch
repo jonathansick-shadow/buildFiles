@@ -1,0 +1,13 @@
+diff --git a/blind/Makefile b/blind/Makefile
+index 28fa93a..7d0bcbc 100644
+--- a/blind/Makefile
++++ b/blind/Makefile
+@@ -200,7 +200,7 @@ install: $(INSTALL_EXECS)
+ 		cp $$x $(INSTALL_DIR)/bin; \
+ 	done
+ 	mkdir -p $(INSTALL_DIR)/etc
+-	sed "s+add_path /usr/local/astrometry/+add_path $(INSTALL_DIR)/+" < ../etc/backend.cfg-dist > $(INSTALL_DIR)/etc/backend.cfg
++	sed "s|add_path /usr/local/astrometry/|add_path $(INSTALL_DIR)/|" < ../etc/backend.cfg-dist > $(INSTALL_DIR)/etc/backend.cfg
+ 	@for x in $(INSTALL_H); do \
+ 		echo cp $$x $(INSTALL_DIR)/include; \
+ 		cp $$x $(INSTALL_DIR)/include; \

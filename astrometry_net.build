@@ -7,6 +7,13 @@ rm -rf @PRODUCT@-@VERSION@ &&
 mv astrometry.net-@VERSION@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+
+# Apply patch
+if [ @VERSION@ == "0.30" ]; then
+   git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD astrometry_net_0.30_Makefile_sed.patch | tar --extract --verbose
+   patch -p0 blind/Makefile < astrometry_net_0.30_Makefile_sed.patch || echo Unable to apply patch
+fi &&
+
 make -j 1 &&
 env INSTALL_DIR=$product_dir make install &&
 : "astrometry.net doesn't install include files and libraries, so we need to do it ourselves" &&
