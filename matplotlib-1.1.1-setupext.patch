@@ -1,0 +1,34 @@
+diff --git a/setupext.py b/setupext.py
+index 8b6a57c..2d69ed4 100644
+--- a/setupext.py
++++ b/setupext.py
+@@ -58,15 +58,8 @@ basedir = {
+     'linux3' : ['/usr/local', '/usr'],
+     'linux'  : ['/usr/local', '/usr',],
+     'cygwin' : ['/usr/local', '/usr',],
+-    '_darwin' : ['/sw/lib/freetype2', '/sw/lib/freetype219', '/usr/local',
+-                '/usr', '/sw'],
+-    # it appears builds with darwin are broken because of all the
+-    # different flags the deps can be compile with, so I am pushing
+-    # people to :
+-    #   make -f make.osx fetch deps mpl_build mpl_install
+-
+-    'darwin' : [],
+-
++     'darwin' : ['/sw/lib/freetype2', '/sw/lib/freetype219', '/usr/local',
++                 '/usr', '/sw', '/usr/X11R6'],
+     'freebsd4' : ['/usr/local', '/usr'],
+     'freebsd5' : ['/usr/local', '/usr'],
+     'freebsd6' : ['/usr/local', '/usr'],
+@@ -81,6 +74,11 @@ basedir = {
+ 
+ import sys, os, stat
+ 
++# Prefer our own EUPS-installed versions, if available
++for eupsdir in ("LIBPNG_DIR", "FREETYPE_DIR", "TCLTK_DIR", "ZLIB_DIR"):
++    if eupsdir in os.environ:
++        basedir[sys.platform].insert(0, os.environ[eupsdir])
++
+ from textwrap import fill
+ from distutils.core import Extension
+ import glob

@@ -9,6 +9,13 @@ if [ ! -d $product_dir ]; then
         mkdir -p $product_dir/lib/python$python_version/site-packages
 fi &&
 cd @PRODUCT@-@VERSION@ &&
+
+# Apply patch
+if [ @VERSION@ == "1.1.1"]; then
+    git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD matplotlib-1.1.1-setupext.patch | tar --extract --verbose
+    patch -p0 setupext.py < matplotlib-1.1.1-setupext.patch || echo Unable to apply patch
+fi &&
+
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
    mkdir -p $product_dir/lib/python
