@@ -1,0 +1,33 @@
+@LSST UPS@ &&
+curl -L \
+	http://downloads.sourceforge.net/project/math-atlas/Stable/@VERSION@/atlas@VERSION@.tar.bz2 \
+> @PRODUCT@-@VERSION@.tar.bz &&
+bunzip2 < @PRODUCT@-@VERSION@.tar.bz | tar -xf - &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+cd ATLAS &&
+mkdir build &&
+cd build &&
+curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
+
+# The following patch overrides the check for CPU throttling.
+# Note that this means that the automatic tuning at the heart of the ATLAS library will be nonsensical,
+# likely resulting in degraded performance.  If at all possible, use a custom-installed version of
+# ATLAS built with CPU throttling disabled.  There are some helpful instructions in the INSTALL.txt file.
+patch -p0 CONFIG/src/probe_arch.c << EOF
+@@ -238,8 +238,7 @@ int main(int nargs, char **args)
+       printf("CPU MHZ=%d\n",
+              ProbeOneInt(OS, asmd, targ, "-m", "CPU MHZ=", &sure));
+    if (flags & Pthrottle)
+-      printf("CPU THROTTLE=%d\n",
+-             ProbeOneInt(OS, asmd, targ, "-t", "CPU THROTTLE=", &sure));
++      printf("CPU THROTTLE=0\n");
+    if (flags & P64)
+    {
+       if (asmd == gas_x86_64)
+EOF &&
+# End of patch to disable CPU throttling check.
+
+../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile =`pwd`/lapack.tgz  &&
+make build &&
+make install
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
