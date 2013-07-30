@@ -7,7 +7,7 @@ tar xvzf clapack-@VERSION@.tgz &&
 cd CLAPACK-@VERSION@ &&
 
 # update the make.inc file
-sed 's/CFLAGS    = -O3/CFLAGS    = -O3 -fPIC/' make.inc.example > make.inc &&
+sed -e 's/PLAT = _LINUX/PLAT =/' -e 's/CFLAGS    = -O3/CFLAGS    = -O3 -fPIC/' make.inc.example > make.inc &&
 
 # build f2c
 make f2clib &&
