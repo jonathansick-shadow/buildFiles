@@ -24,7 +24,7 @@ patch -p0 CONFIG/src/probe_arch.c << EOF
     if (flags & P64)
     {
        if (asmd == gas_x86_64)
-EOF &&
+EOF
 # End of patch to disable CPU throttling check.
 
 ../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile =`pwd`/lapack.tgz  &&
