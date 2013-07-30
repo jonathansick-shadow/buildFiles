@@ -1,0 +1,11 @@
+@LSST UPS@ &&
+git archive --format=tar --remote=git://hsca.ipmu.jp/repos/@PRODUCT@.git @VERSION@ | tar --extract --verbose &&
+cd @PRODUCT@ &&
+product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+configure CC="${CC:-cc} -Wno-empty-body -Wno-format -Wno-format-security" \
+    --prefix=$product_dir \
+    --with-fftw-incdir=$FFTW_DIR/include --with-fftw-libdir=$FFTW_DIR/lib \
+    --with-atlas-incdir=$ATLAS_DIR/include --with-atlas-libdir=$ATLAS_DIR/lib &&
+make &&
+make install &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
