@@ -5,9 +5,6 @@ curl -L \
 bunzip2 < @PRODUCT@-@VERSION@.tar.bz | tar -xf - &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 cd ATLAS &&
-mkdir build &&
-cd build &&
-curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
 
 # The following patch overrides the check for CPU throttling.
 # Note that this means that the automatic tuning at the heart of the ATLAS library will be nonsensical,
@@ -16,7 +13,11 @@ curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
 git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD atlas-cpu-throttling.patch | tar --extract --verbose &&
 patch -p0 CONFIG/src/probe_arch.c < atlas-cpu-throttling.patch &&
 
-../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile =`pwd`/lapack.tgz  &&
+mkdir build &&
+cd build &&
+curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
+
+../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
 make build &&
-make install
+make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
