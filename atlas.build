@@ -2,7 +2,12 @@
 curl -L \
 	http://downloads.sourceforge.net/project/math-atlas/Stable/@VERSION@/atlas@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz &&
-bunzip2 < @PRODUCT@-@VERSION@.tar.bz | tar -xf - &&
+
+# The tar file is somewhat malformed, producing errors for BSD tar,
+# so we don't check for errors when extracting. For more information,
+# see http://code.google.com/p/libarchive/issues/detail?id=299
+
+bunzip2 < @PRODUCT@-@VERSION@.tar.bz | tar -xkf -
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 cd ATLAS &&
 
