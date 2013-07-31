@@ -23,6 +23,6 @@ cd build &&
 curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
 
 ../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
-make build &&
+make -j 1 build &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
