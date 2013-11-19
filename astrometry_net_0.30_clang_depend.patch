@@ -1,0 +1,12 @@
+diff -ur astrometry.net-0.30.orig/util/makefile.deps astrometry.net-0.30/util/makefile.deps
+--- astrometry.net-0.30.orig/util/makefile.deps	2008-05-23 10:56:32.000000000 -0400
++++ astrometry.net-0.30/util/makefile.deps	2012-03-16 20:36:00.309522068 -0400
+@@ -34,7 +34,7 @@
+ ifeq ($(X),)
+   DEP_OUT := -MF
+ else
+-  DEP_OUT := \>
++  DEP_OUT := >
+ endif
+
+ %.dep : %.c
