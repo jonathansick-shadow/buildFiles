@@ -11,7 +11,13 @@ product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 # Apply patch
 if [ @VERSION@ == "0.30" ]; then
    git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD astrometry_net_0.30_Makefile_sed.patch | tar --extract --verbose
-   patch -p0 blind/Makefile < astrometry_net_0.30_Makefile_sed.patch || echo Unable to apply patch
+   patch -p0 blind/Makefile < astrometry_net_0.30_Makefile_sed.patch || echo Unable to apply Makefile patch
+fi &&
+_COMPILER=$(basename "$CC") &&
+if [ ${_COMPILER:0:5} == "clang" ]; then
+   export CFLAGS="$CFLAGS -std=gnu89"
+   git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD astrometry_net_0.30_clang_depend.patch | tar --extract --verbose
+   patch -p1 < astrometry_net_0.30_clang_depend.patch || echo Unable to apply clang patch
 fi &&
 
 make -j 1 &&
