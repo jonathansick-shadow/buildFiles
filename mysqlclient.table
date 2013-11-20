@@ -2,5 +2,5 @@ envSet(MYSQL_INCLUDE_PATH, ${PRODUCT_DIR}/include/mysql)
 
 envPrepend(PATH, ${PRODUCT_DIR}/bin)
 
-pathAppend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
-pathAppend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
+pathPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
+pathPrepend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)

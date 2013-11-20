@@ -1,2 +1,2 @@
 setupRequired(python)
-pathAppend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
+pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
