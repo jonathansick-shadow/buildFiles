@@ -20,9 +20,13 @@ patch -p0 CONFIG/src/probe_arch.c < atlas-cpu-throttling.patch &&
 
 mkdir build &&
 cd build &&
-curl -L http://www.netlib.org/lapack/lapack-3.4.2.tgz > lapack.tgz &&
+curl -L http://www.netlib.org/lapack/lapack-3.5.0.tgz > lapack.tgz &&
 
-../configure --prefix=$product_dir --shared --nof77 -Fa alg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
+if [ "$(eups flavor)" = DarwinX86 ]; then
+   CONFIGURE_FLAGS="-C acg clang"
+fi &&
+
+../configure --prefix=$product_dir --shared --nof77 $CONFIGURE_FLAGS -F acg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
 make -j 1 build &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
