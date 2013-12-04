@@ -23,7 +23,7 @@ if [ "${C:0:5}" == "clang" ] && [ $($CC -v 2>&1 | grep -q '^clang version') ] &&
     echo '#define HAVE_GETHOSTBYNAME_R_GLIBC2_STYLE 1' >> include/config.h
 fi &&
 
-make &&
+env LANG=C make &&
 make install &&
 (cd $product_dir/lib && ln -fs mysql/* . ) &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
