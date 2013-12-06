@@ -1,1 +1,2 @@
-# Tell eups distrib that this is a valid Build File
+@LSST UPS@ &&
+lsst_ups @PRODUCT@ @VERSION@ $product_dir
