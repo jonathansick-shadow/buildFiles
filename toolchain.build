@@ -1,3 +1,4 @@
 @LSST UPS@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
+mkdir -p $product_dir &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
