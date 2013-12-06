@@ -1,11 +1,11 @@
 @LSST UPS@ &&
 curl -L \
-    http://dev.lsstcorp.org/pkgs/std/w12/external/wcslib/@VERSION@/wcslib-@VERSION@.tar.bz2 \
+    http://dev.lsstcorp.org/pkgs/external/wcslib/@REPOVERSION@/wcslib-@REPOVERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
 bunzip2 < @PRODUCT@-@VERSION@.tar.bz2 | tar -xf - &&
-cd @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@REPOVERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
-( git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD @PRODUCT@-@VERSION@-shrln.patch | tar --extract --verbose && patch -p0 configure @PRODUCT@-@VERSION@-shrln.patch || echo Unable to apply patch ) &&
+( git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD @PRODUCT@-@REPOVERSION@-shrln.patch | tar --extract --verbose && patch -p0 configure @PRODUCT@-@REPOVERSION@-shrln.patch || echo Unable to apply patch ) &&
 ./configure --prefix=$product_dir --with-cfitsioinc=$CFITSIO_DIR/include --with-cfitsiolib=$CFITSIO_DIR/lib --disable-fortran &&
 make -j 1 &&
 make -j 1 install &&
