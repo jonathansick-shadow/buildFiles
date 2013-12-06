@@ -1,9 +1,9 @@
 @LSST UPS@ &&
 curl -L \
-    http://www.multiprecision.org/mpc/download/@PRODUCT@-@VERSION@.tar.gz \
+    http://www.multiprecision.org/mpc/download/@PRODUCT@-@REPOVERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-cd @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@REPOVERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir --with-gmp=$GMP_DIR --with-mpfr=$MPFR_DIR &&
 make &&

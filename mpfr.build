@@ -1,9 +1,9 @@
 @LSST UPS@ &&
 curl -L \
-     http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@VERSION@.tar.gz \
+     http://ftpmirror.gnu.org/@PRODUCT@/@PRODUCT@-@REPOVERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
-cd @PRODUCT@-@VERSION@ &&
+cd @PRODUCT@-@REPOVERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 ./configure --prefix=$product_dir --with-gmp=$GMP_DIR &&
 make &&
