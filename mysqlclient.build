@@ -1,7 +1,8 @@
 # -*- sh -*-
 @LSST UPS@ &&
+majorminor=$(echo @VERSION@ | sed 's|^\([0-9]\{1,\}\)\.\([0-9]\{1,\}\)\..*|\1\.\2|') &&
 curl -L \
-    http://dev.lsstcorp.org/pkgs/std/w12/external/mysqlclient/@VERSION@/mysql-@VERSION@.tar.gz \
+    http://dev.mysql.com/get/Downloads/MySQL-${majorminor}/mysql-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd mysql-@VERSION@ &&
