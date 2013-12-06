@@ -1,15 +1,15 @@
 @LSST UPS@ &&
 curl -L \
-	http://www.astrometry.net/downloads/OLD/astrometry.net-@VERSION@.tar.gz \
+	http://www.astrometry.net/downloads/OLD/astrometry.net-@REPOVERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 rm -rf @PRODUCT@-@VERSION@ &&
-mv astrometry.net-@VERSION@ @PRODUCT@-@VERSION@ &&
+mv astrometry.net-@REPOVERSION@ @PRODUCT@-@VERSION@ &&
 cd @PRODUCT@-@VERSION@ &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 
 # Apply patch
-if [ @VERSION@ == "0.30" ]; then
+if [ @REPOVERSION@ == "0.30" ]; then
    git archive --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git HEAD astrometry_net_0.30_Makefile_sed.patch | tar --extract --verbose
    patch -p0 blind/Makefile < astrometry_net_0.30_Makefile_sed.patch || echo Unable to apply Makefile patch
 fi &&
