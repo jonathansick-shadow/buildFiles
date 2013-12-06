@@ -1,6 +1,6 @@
 @LSST UPS@ &&
 curl -L \
-	http://downloads.sourceforge.net/project/math-atlas/Stable/@VERSION@/atlas@VERSION@.tar.bz2 \
+	http://downloads.sourceforge.net/project/math-atlas/Stable/@REPOVERSION@/atlas@REPOVERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz &&
 
 # The tar file is somewhat malformed, producing errors for BSD tar,
