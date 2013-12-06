@@ -1,6 +1,6 @@
 @LSST UPS@ &&
 curl -L \
-     http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/@VERSION@/@PRODUCT@-@VERSION@.tar.gz \
+     http://www.mpich.org/static/downloads/@VERSION@/mpich-@VERSION@.tar.gz \
 > @PRODUCT@-@VERSION@.tar.gz &&
 gunzip < @PRODUCT@-@VERSION@.tar.gz | tar -xf - &&
 cd @PRODUCT@-@VERSION@ &&
