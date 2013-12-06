@@ -1,0 +1,2 @@
+setupRequired(gcc)
+setupRequired(python)
