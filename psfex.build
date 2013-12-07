@@ -1,4 +1,3 @@
-@LSST UPS@ &&
 git archive --format=tar --prefix=psfex/ --remote=git://hsca.ipmu.jp/repos/psfex.git @REPOVERSION@ | tar --extract --verbose &&
 cd psfex &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
@@ -8,4 +7,5 @@ product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
     --with-atlas-incdir=$ATLAS_DIR/include --with-atlas-libdir=$ATLAS_DIR/lib &&
 make &&
 make install &&
-lsst_ups @PRODUCT@ @VERSION@ $product_dir
+setup -j -r . &&
+scons opt=3 install prefix=$product_dir version=@VERSION@
