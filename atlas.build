@@ -22,8 +22,12 @@ mkdir build &&
 cd build &&
 curl -L http://www.netlib.org/lapack/lapack-3.5.0.tgz > lapack.tgz &&
 
+CONFIGURE_FLAGS=""
 if [ "$(eups flavor)" = DarwinX86 ]; then
-   CONFIGURE_FLAGS="-C acg clang"
+   CONFIGURE_FLAGS+=" -C acg clang"
+fi &&
+if [ -n "$CFLAGS" ]; then
+   CONFIGURE_FLAGS+=" --cflags=$CFLAGS"
 fi &&
 
 ../configure --prefix=$product_dir --shared --nof77 $CONFIGURE_FLAGS -F acg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
