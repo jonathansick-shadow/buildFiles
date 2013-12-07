@@ -27,10 +27,10 @@ if [ "$(eups flavor)" = DarwinX86 ]; then
    CONFIGURE_FLAGS+=" -C acg clang"
 fi &&
 if [ -n "$CFLAGS" ]; then
-   CONFIGURE_FLAGS+=" --cflags=$CFLAGS"
+   CONFIGURE_FLAGS+=" --cflags=\"$CFLAGS\""
 fi &&
 
-../configure --prefix=$product_dir --shared --nof77 $CONFIGURE_FLAGS -F acg '-fPIC' --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
+../configure --prefix=$product_dir --shared --nof77 $CONFIGURE_FLAGS -F acg "$CFLAGS -fPIC" --with-netlib-lapack-tarfile=`pwd`/lapack.tgz &&
 make -j 1 build &&
 make install &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir
