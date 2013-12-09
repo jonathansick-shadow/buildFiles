@@ -1,2 +1,3 @@
+setupOptional(gcc)
 envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/lib)
 envPrepend(PATH, ${PRODUCT_DIR}/bin)

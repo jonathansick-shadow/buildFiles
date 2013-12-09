@@ -1,1 +1,2 @@
+setupOptional(gcc)
 envPrepend(PATH, ${PRODUCT_DIR}/bin)
