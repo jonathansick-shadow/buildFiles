@@ -1,2 +1,7 @@
 setupRequired(cfitsio)
 setupRequired(astrometry_net_data)
+envPrepend(PYTHONPATH, ${PRODUCT_DIR})
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/util)
+envPrepend(LD_LIBRARY_PATH, ${PRODUCT_DIR}/blind)
+envPrepend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/util)
+envPrepend(DYLD_LIBRARY_PATH, ${PRODUCT_DIR}/blind)
