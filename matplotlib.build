@@ -17,6 +17,7 @@ if [ @VERSION@ == "1.1.1" ]; then
     patch -p0 setupext.py < matplotlib-1.1.1-setupext.patch || echo Unable to apply patch
 fi &&
 
+export PYTHONPATH=$product_dir/lib/python$python_version/site-packages:$PYTHONPATH &&
 python setup.py install --prefix=$product_dir &&
 if [ ! -d $product_dir/lib/python ]; then
    mkdir -p $product_dir/lib/python
