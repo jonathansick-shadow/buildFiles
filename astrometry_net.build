@@ -28,4 +28,4 @@ for d in blind util libkd qfits-an qfits-an/src; do
 	cp $d/*.h $product_dir/include
 done &&
 lsst_ups @PRODUCT@ @VERSION@ $product_dir &&
-git archive --verbose --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git --prefix=ups/ HEAD ${productname}.table | tar --extract --verbose --directory $product_dir/ups/
+git archive --verbose --format=tar --remote=git://hsca.ipmu.jp/repos/devenv/buildFiles.git --prefix=ups/ HEAD ${productname}.table | tar --extract --verbose --directory $product_dir/
