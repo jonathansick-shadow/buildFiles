@@ -1,6 +1,6 @@
 # -*- sh -*-
 @LSST UPS@ &&
-curl -L \
+curl -Lk \
      http://bitbucket.org/eigen/eigen/get/@VERSION@.tar.bz2 \
 > @PRODUCT@-@VERSION@.tar.bz2 &&
 bunzip2 @PRODUCT@-@VERSION@.tar.bz2 &&
