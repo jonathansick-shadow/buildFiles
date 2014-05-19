@@ -20,8 +20,8 @@ echo 'LAPACKLIB = liblapack.a' >> make.inc &&
 echo 'TMGLIB = libtmglib.a' >> make.inc &&
 echo 'EIGSRCLIB = libeigsrc.a' >> make.inc &&
 echo 'LINSRCLIB = liblinsrc.a' >> make.inc &&
-make blaslib &&
-make &&
+make -j 1 blaslib &&
+make -j 1 &&
 product_dir=$(eups path 0)/$(eups flavor)/@PRODUCT@/@VERSION@ &&
 if [ ! -d $product_dir ]; then
 	mkdir -p $product_dir/lib/
