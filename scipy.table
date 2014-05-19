@@ -1,4 +1,4 @@
 setupRequired(python)
 setupRequired(numpy)
-setupRequired(lapack 3.1.1)
+setupRequired(lapack 3.4.2)
 pathPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
