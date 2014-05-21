@@ -3,6 +3,8 @@
 ### It defines some useful operations for distribution
 ###
 
+hooks.config.Eups.globalTags += ["HSC", "unstable", ]
+
 def cmdHook(Eups, cmd, opts, args):
     if cmd.split()[0] == "distrib":
         subcmd = cmd.split()[1]
@@ -10,6 +12,7 @@ def cmdHook(Eups, cmd, opts, args):
             opts.distribTypeName = "builder"
             opts.allowIncomplete = True
             opts.useFlavor = "generic"
+            opts.serverDir = "/home/price/public_html/packages"
             
 eups.commandCallbacks.add(cmdHook)
 
@@ -75,8 +78,8 @@ def hscVersionIncrementer(product, version):
 
 
 # Select which build version hacker to use
-hooks.config.Eups.repoVersioner = lsstRepoVersioner
-hooks.config.Eups.versionIncrementer = lsstVersionIncrementer
+hooks.config.Eups.repoVersioner = hscRepoVersioner
+hooks.config.Eups.versionIncrementer = hscVersionIncrementer
 
 
 # How to build LSST products (pull from git)
@@ -102,12 +105,16 @@ build_lsst() {
         rm -rf $builddir
     fi
     mkdir $builddir &&
-    git archive --format=tar --remote=git://git.lsstcorp.org/LSST/DMS/${reponame}.git ${repoversion} | tar -x -C $builddir &&
+    git archive --format=tar --remote=git://hsca.ipmu.jp/repos/${reponame}.git ${repoversion} | tar -x -C $builddir &&
     cd $builddir &&
     setup -r . &&
     scons opt=3 install version=$versionname
 }
 """
+
+# How to build HSC products: same as LSST
+import re
+hooks.config.distrib["builder"]["variables"]["HSC BUILD"] = re.sub("build_lsst", "build_hsc", hooks.config.distrib["builder"]["variables"]["LSST BUILD"])
 
 # How to install "ups" files for LSST third-party products (grab from git)
 #
@@ -125,7 +132,7 @@ lsst_ups() {
     versionname=$2
     installdir=$3
     githash=$4
-    gitrepo="git://git.lsstcorp.org/LSST/DMS/devenv/buildFiles.git"
+    gitrepo="git://hsca.ipmu.jp/repos/devenv/buildFiles.git"
     if [ -z "$githash" ]; then
         githash="HEAD"
     fi
@@ -136,28 +143,3 @@ lsst_ups() {
 }
 """
 
-# How to build HSC products (pull from hg)
-#
-# HSC products' build files should contain:
-# @HSC BUILD@
-# build_hsc @PRODUCT@ @VERSION@ @REPOVERSION@
-hooks.config.distrib["builder"]["variables"]["HSC BUILD"] = """
-build_hsc() {
-    if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
-        echo "build_hsc requires three arguments: build_hsc PRODUCT VERSION REPOVERSION"
-        exit 1
-    fi
-    productname=$1
-    versionname=$2
-    repoversionname=$3
-    builddir=${productname}-${versionname}
-    if [ -d $builddir ]; then
-        rm -rf $builddir
-    fi
-    hg clone ssh://hsc-gw2.mtk.nao.ac.jp//ana/hgrepo/${productname} $builddir &&
-    cd $builddir &&
-    hg up $repoversionname &&
-    setup -r . &&
-    scons opt=3 install version=$versionname
-}
-"""
