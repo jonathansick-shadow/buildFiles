@@ -1,6 +1,7 @@
-setupOptional(python)
-envUnset(PRODUCT_DIR)
-envPrepend(PATH, ${PRODUCT_DIR}/libexec/git-core)
+envUnset(PRODUCT_DIR)           # git uses GIT_DIR for its own purposes
+if (0) {
+   envPrepend(PATH, ${PRODUCT_DIR}/libexec/git-core) # deprecated since 1.6.0
+}
 envPrepend(PATH, ${PRODUCT_DIR}/bin)
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/lib/python/site-packages)
 envPrepend(PERL5LIB, ${PRODUCT_DIR}/lib)
