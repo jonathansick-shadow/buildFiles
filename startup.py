@@ -1,9 +1,10 @@
-### This file is a "startup.py" used in eups.
+# This file is a "startup.py" used in eups.
 ###
-### It defines some useful operations for distribution
+# It defines some useful operations for distribution
 ###
 
 hooks.config.Eups.globalTags += ["HSC", "unstable", ]
+
 
 def cmdHook(Eups, cmd, opts, args):
     if cmd.split()[0] == "distrib":
@@ -13,7 +14,7 @@ def cmdHook(Eups, cmd, opts, args):
             opts.allowIncomplete = True
             opts.useFlavor = "generic"
             opts.serverDir = "/home/price/public_html/packages"
-            
+
 eups.commandCallbacks.add(cmdHook)
 
 global lsstThirdParty
@@ -30,11 +31,14 @@ defaultVersionIncrementer = hooks.config.Eups.versionIncrementer
 
 # Build version hackers for LSST: "plus versions", e.g., +3
 global lsstRepoVersioner, lsstVersionIncrementer
+
+
 def lsstRepoVersioner(product, version):
     # We don't rebuild third-party packages in the same way as for LSST packages
     if product in lsstThirdParty:
         return version
     return defaultRepoVersioner(product, version)
+
 
 def lsstVersionIncrementer(product, version):
     if product in lsstThirdParty:
@@ -44,11 +48,14 @@ def lsstVersionIncrementer(product, version):
 # Build version hackers for HSC: "letter versions", e.g., a_hsc
 global hscSuffix
 hscSuffix = '_hsc'
+
+
 def hscRepoVersioner(product, version):
     if version[-len(hscSuffix):] == hscSuffix:
         import re
         return re.sub(r"^([\w.+-]*[0-9.])[a-z]+" + hscSuffix + "$", r"\1", version)
     return lsstRepoVersioner(product, version)
+
 
 def hscVersionIncrementer(product, version):
     import re
@@ -114,7 +121,8 @@ build_lsst() {
 
 # How to build HSC products: same as LSST
 import re
-hooks.config.distrib["builder"]["variables"]["HSC BUILD"] = re.sub("build_lsst", "build_hsc", hooks.config.distrib["builder"]["variables"]["LSST BUILD"])
+hooks.config.distrib["builder"]["variables"]["HSC BUILD"] = re.sub(
+    "build_lsst", "build_hsc", hooks.config.distrib["builder"]["variables"]["LSST BUILD"])
 
 # How to install "ups" files for LSST third-party products (grab from git)
 #
